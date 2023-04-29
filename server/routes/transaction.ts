@@ -16,22 +16,30 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   let transaction: Transaction = {
-    id: transactions.length + 1, // Does not mimic db identity column because you can delete say id 5 but the next created one should be 6.
+    id: transactions[transactions.length].id + 1, // Does not mimic db identity column because you can delete say id 5 but the next created one should be 6.
     name: req.body.name,
     amount: req.body.amount,
     date: new Date(),
     donation: req.body.donation
   };
 
-  transactions.push(transaction)
+  transactions.push(transaction);
   res.send("Transaction added.");
 });
 
-router.put("/", (req, res) => {
+router.put("/:id", (req, res) => {
+  let idx = transactions.findIndex(t => t.id === Number(req.params.id));
+
+  transactions[idx].amount = req.body.amount;
+  transactions[idx].date = new Date();
+  transactions[idx].name = req.body.name;
+  transactions[idx].donation = req.body.donation;
+
   res.send("Transaction updated.");
 });
 
-router.delete("/", (req, res) => {
+router.delete("/:id", (req, res) => {
+  transactions = transactions.filter(t => t.id !== Number(req.params.id))
   res.send("Transaction deleted.");
 });
 
@@ -50,5 +58,4 @@ function createTransactions(): Transaction[] {
   return transactions;
 }
 
-// module.exports = router;
 export default router;
