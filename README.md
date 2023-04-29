@@ -1,2 +1,3 @@
-# secure-give-crud
-Simple Payment Logs
+# Secure Give Code Challenge
+
+Created a simple CRUD app using Typescript that will log transactions.

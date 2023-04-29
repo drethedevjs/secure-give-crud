@@ -1,0 +1,11 @@
+{
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "outDir": "dist"
+  },
+  "files": ["server.ts"],
+  "include": ["server/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
