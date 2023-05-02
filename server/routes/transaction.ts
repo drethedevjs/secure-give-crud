@@ -50,7 +50,7 @@ function createTransactions(): Transaction[] {
       id: i,
       name: random.name({ nationality: 'en' }),
       date: random.date(),
-      amount: random.dollar({ max: 10000 }),
+      amount: random.dollar({ max: 500 }),
       donation: random.bool({ likelihood: 70 })
     });
   };
