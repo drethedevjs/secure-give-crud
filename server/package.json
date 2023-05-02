@@ -1,8 +1,8 @@
 {
-  "name": "church-transactions",
+  "name": "ct-server",
   "version": "1.0.0",
   "description": "For churches to log and updated transactions.",
-  "main": "dist/server.js",
+  "main": "dist/server/server.js",
   "scripts": {
     "test": "test",
     "build": "tsc"
@@ -19,16 +19,18 @@
   },
   "homepage": "https://github.com/drethedevjs/secure-give-crud#readme",
   "dependencies": {
+    "@types/cors": "^2.8.13",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "mongoose": "^7.1.0",
     "nodemon": "^2.0.22"
   },
   "devDependencies": {
-    "chance": "^1.1.11",
     "@tsconfig/node16": "^1.0.3",
     "@types/chance": "^1.1.3",
     "@types/express": "^4.17.17",
     "@types/node": "^18.16.2",
+    "chance": "^1.1.11",
     "typescript": "^5.0.4"
   }
 }
