@@ -1,6 +1,6 @@
 import express from 'express';
 import Chance from 'chance';
-import { Transaction } from '../types/Transaction.js';
+import { Transaction } from '../../Shared/types/Transaction.js';
 
 const router = express.Router();
 const random = new Chance();
