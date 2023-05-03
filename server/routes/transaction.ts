@@ -49,7 +49,7 @@ function createTransactions(): Transaction[] {
     transactions.push({
       id: i,
       name: random.name({ nationality: 'en' }),
-      date: random.date(),
+      date: random.date({ year: 2023 }),
       amount: random.dollar({ max: 500 }),
       donation: random.bool({ likelihood: 70 })
     });
