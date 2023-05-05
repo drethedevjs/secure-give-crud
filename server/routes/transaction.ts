@@ -28,12 +28,8 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  let idx = transactions.findIndex(t => t.id === Number(req.params.id));
-
-  transactions[idx].amount = req.body.amount;
-  transactions[idx].date = new Date();
-  transactions[idx].name = req.body.name;
-  transactions[idx].donation = req.body.donation;
+  let idx = req.body.id - 1;
+  transactions[idx] = req.body;
 
   res.send("Transaction updated.");
 });

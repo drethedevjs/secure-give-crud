@@ -1,25 +1,32 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { TransactionModalProps } from "./TransactionModalProps.js";
+import TransactionEditForm from "./TransactionEditForm.js";
+import { TransactionModalProps } from "./PropInterfaces.js";
+import { Transaction } from "../../Shared/types/Transaction.js";
 
-const TransactionModal: FC<TransactionModalProps> = (props): JSX.Element => {
+const TransactionModal: FC<TransactionModalProps> = ({ record, show, handleCloseFunction, handleSaveTransaction}): JSX.Element => {
+  const [transactionFormData, setTransactionFormData] = useState<Transaction>(record);
+
+  useEffect(() => {
+    setTransactionFormData(record);
+  }, [record]);
+
   return (
     <div
       className="modal"
       style={{ display: 'block', position: 'initial' }}
     >
-      <Modal show={props.show} onHide={props.handleCloseFunction}>
+      <Modal show={show} onHide={handleCloseFunction}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>{record?.name}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p>Modal body text goes here.</p>
+          <TransactionEditForm transactionFormData={transactionFormData} setTransactionFormData={setTransactionFormData} />
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
+          <Button variant="primary" onClick={() => handleSaveTransaction(transactionFormData)}>Save changes</Button>
         </Modal.Footer>
       </Modal>
     </div>

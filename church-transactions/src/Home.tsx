@@ -7,16 +7,38 @@ import TransactionModal from "./TransactionModal.js";
 import { TransactionService } from "./TransactionService.js";
 
 function Home() {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+  const [transaction, setTrans] = useState<Transaction>({
+    id: 0,
+    name: "",
+    amount: "",
+    donation: false,
+    date: new Date()
+  });
+
   const [amount, setAmount] = useState("");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
+  const handleShow = (transactionId: number) => {
+    let t = transactions.find(t => t.id === transactionId);
+
+    if (t) {
+      setTrans(t);
+      setShow(true);
+    }
+  };
+
+  const handleSaveTransaction = async (t: Transaction) => {
+    await TransactionService.updateTransaction(t);
+    transactions[t.id - 1] = t;
+    setShow(false);
+  }
 
   const calculateTotalAmount = (transactions: Array<Transaction>): string => {
     let total = 0;
+
     transactions.map(t => {
       let amt = t.amount.replace("$", "");
       total += Number(amt)
@@ -37,7 +59,7 @@ function Home() {
   return (
     <>
       <h1>First Baptist Generosity</h1>
-      <TransactionModal show={show} handleCloseFunction={handleClose} />
+      <TransactionModal show={show} record={transaction} handleCloseFunction={handleClose} handleSaveTransaction={handleSaveTransaction} />
       <IncomeStats noOfDonors={transactions.length} amount={amount} />
       <Table>
         <thead>
@@ -51,14 +73,14 @@ function Home() {
         </thead>
         <tbody>
           { transactions.map((t: Transaction) => (
-            <tr>
+            <tr key={t.id}>
               <td>{dateFormat(t.date, "m/d/yyyy, h:MM TT")}</td>
               <td>{t.name}</td>
               <td>{t.amount}</td>
               <td><Badge bg="primary" pill hidden={!t.donation}>donation</Badge></td>
               <td>
-                <Button variant="outline-primary" onClick={handleShow}>View</Button>{' '}
-                <Button variant="outline-danger">Delete</Button>{' '}
+                <Button variant="outline-primary" onClick={() => handleShow(t.id)}>View</Button>{' '}
+                <Button variant="outline-danger">Delete</Button>
               </td>
             </tr>
             )
