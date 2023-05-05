@@ -29,13 +29,10 @@ function Home() {
     date: new Date()
   })
 
-  const handleShow = (transactionId: number | undefined) => {
+  const handleShowForm = (transactionId: number | undefined) => {
     if (transactionId) {
       let t = transactions.find(t => t.id === transactionId);
-
-      if (t) {
-        setTrans(t);
-      };
+      setTrans(t);
     } else {
       clearModal();
     }
@@ -44,6 +41,13 @@ function Home() {
   };
 
   const addCurrencySymbol = (t: Transaction) => t.amount = "$".concat(t.amount);
+
+  const handleDeleteTransaction = async (transactionId: number) => {
+    await TransactionService.deleteTransaction(transactionId);
+    let records = transactions.filter(t => t.id !== transactionId)
+    setTransactions(records);
+    setAmount(calculateTotalAmount(records));
+  };
 
   const handleSaveTransaction = async (t: Transaction) => {
     if (t.id) {
@@ -85,7 +89,7 @@ function Home() {
       <TransactionModal show={show} record={transaction} handleCloseFunction={handleClose} handleSaveTransaction={handleSaveTransaction} />
       <IncomeStats noOfDonors={transactions.length} amount={amount} />
 
-      <Button variant="outline-success" onClick={() => handleShow(undefined)}>Add Transaction</Button>{' '}
+      <Button variant="outline-success" onClick={() => handleShowForm(undefined)}>Add Transaction</Button>{' '}
       <Table>
         <thead>
           <tr>
@@ -105,8 +109,8 @@ function Home() {
                 <td>{t.amount}</td>
                 <td><Badge bg="primary" pill hidden={!t.donation}>donation</Badge></td>
                 <td>
-                  <Button variant="outline-primary" onClick={() => handleShow(t.id)}>View</Button>{' '}
-                  <Button variant="outline-danger">Delete</Button>
+                  <Button variant="outline-primary" onClick={() => handleShowForm(t.id)}>View</Button>{' '}
+                  <Button variant="outline-danger" onClick={() => handleDeleteTransaction(t.id)}>Delete</Button>
                 </td>
               </tr>
             ))
