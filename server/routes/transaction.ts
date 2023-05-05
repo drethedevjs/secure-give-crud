@@ -15,16 +15,16 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  let transaction: Transaction = {
-    id: transactions[transactions.length].id + 1, // Does not mimic db identity column because you can delete say id 5 but the next created one should be 6.
+  let t: Transaction = {
+    id: transactions[transactions.length - 1].id + 1, // Does not mimic db identity column because you can delete say id 5 but the next created one should be 6.
     name: req.body.name,
     amount: req.body.amount,
     date: new Date(),
     donation: req.body.donation
   };
 
-  transactions.push(transaction);
-  res.send("Transaction added.");
+  transactions.push(t);
+  res.json({ message: "Transaction added!", transaction: t });
 });
 
 router.put("/:id", (req, res) => {

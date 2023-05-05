@@ -21,18 +21,41 @@ function Home() {
 
   const handleClose = () => setShow(false);
 
-  const handleShow = (transactionId: number) => {
-    let t = transactions.find(t => t.id === transactionId);
+  const clearModal = () => setTrans({
+    id: 0,
+    name: "",
+    amount: "",
+    donation: false,
+    date: new Date()
+  })
 
-    if (t) {
-      setTrans(t);
-      setShow(true);
+  const handleShow = (transactionId: number | undefined) => {
+    if (transactionId) {
+      let t = transactions.find(t => t.id === transactionId);
+
+      if (t) {
+        setTrans(t);
+      };
+    } else {
+      clearModal();
     }
+
+    setShow(true);
   };
 
+  const addCurrencySymbol = (t: Transaction) => t.amount = "$".concat(t.amount);
+
   const handleSaveTransaction = async (t: Transaction) => {
-    await TransactionService.updateTransaction(t);
-    transactions[t.id - 1] = t;
+    if (t.id) {
+      await TransactionService.updateTransaction(t);
+      transactions[t.id - 1] = t;
+    } else {
+      let res = await TransactionService.addTransaction(t);
+      addCurrencySymbol(res.data.transaction);
+      transactions.push(res.data.transaction);
+      setAmount(calculateTotalAmount(transactions));
+    };
+
     setShow(false);
   }
 
@@ -61,6 +84,8 @@ function Home() {
       <h1>First Baptist Generosity</h1>
       <TransactionModal show={show} record={transaction} handleCloseFunction={handleClose} handleSaveTransaction={handleSaveTransaction} />
       <IncomeStats noOfDonors={transactions.length} amount={amount} />
+
+      <Button variant="outline-success" onClick={() => handleShow(undefined)}>Add Transaction</Button>{' '}
       <Table>
         <thead>
           <tr>
@@ -72,19 +97,22 @@ function Home() {
           </tr>
         </thead>
         <tbody>
-          { transactions.map((t: Transaction) => (
-            <tr key={t.id}>
-              <td>{dateFormat(t.date, "m/d/yyyy, h:MM TT")}</td>
-              <td>{t.name}</td>
-              <td>{t.amount}</td>
-              <td><Badge bg="primary" pill hidden={!t.donation}>donation</Badge></td>
-              <td>
-                <Button variant="outline-primary" onClick={() => handleShow(t.id)}>View</Button>{' '}
-                <Button variant="outline-danger">Delete</Button>
-              </td>
-            </tr>
-            )
-          )}
+          { transactions.length ?
+            transactions.map((t: Transaction) => (
+              <tr key={t.id}>
+                <td>{dateFormat(t.date, "m/d/yyyy, h:MM TT")}</td>
+                <td>{t.name}</td>
+                <td>{t.amount}</td>
+                <td><Badge bg="primary" pill hidden={!t.donation}>donation</Badge></td>
+                <td>
+                  <Button variant="outline-primary" onClick={() => handleShow(t.id)}>View</Button>{' '}
+                  <Button variant="outline-danger">Delete</Button>
+                </td>
+              </tr>
+            ))
+            :
+            "You have no transactions recorded."
+          }
         </tbody>
       </Table>
     </>
