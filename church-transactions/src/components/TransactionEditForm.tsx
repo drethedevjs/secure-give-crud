@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import { Form } from "react-bootstrap";
-import { FormDataProps } from "./PropInterfaces.js";
+import { FormDataProps } from "../Utils/PropInterfaces.js";
 
 export default function TransactionEditForm({ transactionFormData, setTransactionFormData } : FormDataProps) {
 

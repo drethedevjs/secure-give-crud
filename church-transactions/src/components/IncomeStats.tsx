@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import { IncomeStatsProps } from "./IncomeStatsProps.js";
+import { IncomeStatsProps } from "../Utils/PropInterfaces.js";
 
 const IncomeStats: FC<IncomeStatsProps> = (props): JSX.Element => {
   return (

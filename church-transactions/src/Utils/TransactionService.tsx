@@ -1,6 +1,6 @@
-import axios from "../node_modules/axios/index.js";
-import { TransactionServiceModel } from "../../Shared/types/TransactionServiceModel.js";
-import { Transaction } from "../../Shared/types/Transaction.js";
+import axios from "axios";
+import { TransactionServiceModel } from "../../../Shared/types/TransactionServiceModel.js";
+import { Transaction } from "../../../Shared/types/Transaction.js";
 
 const BASE_URL = "http://localhost:2222/transactions";
 
