@@ -43,7 +43,6 @@ router.delete("/:id", (req, res) => {
 });
 
 export function createTransactions(): void {
-  // let transactions: Transaction[] = [];
   for (let i = 1; i <= 50; i++) {
     transactions.push({
       id: i,
