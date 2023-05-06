@@ -88,8 +88,8 @@ function Home() {
       <h1>First Baptist Generosity</h1>
       <TransactionModal show={show} record={transaction} handleCloseFunction={handleClose} handleSaveTransaction={handleSaveTransaction} />
       <IncomeStats noOfDonors={transactions.length} amount={amount} />
-
-      <Button variant="outline-success" onClick={() => handleShowForm(undefined)}>Add Transaction</Button>{' '}
+      <hr className="hr" />
+      <Button variant="outline-success" onClick={() => handleShowForm(undefined)}>Add Transaction</Button>
       <Table>
         <thead>
           <tr>
