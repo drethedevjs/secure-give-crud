@@ -5,6 +5,8 @@ import { Transaction } from "../../Shared/types/Transaction.js";
 import IncomeStats from "./IncomeStats.js";
 import TransactionModal from "./TransactionModal.js";
 import { TransactionService } from "./TransactionService.js";
+import { enqueueSnackbar } from 'notistack';
+
 
 function Home() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
@@ -40,7 +42,11 @@ function Home() {
     setShow(true);
   };
 
-  const addCurrencySymbol = (t: Transaction) => t.amount = "$".concat(t.amount);
+  const formatCurrency = (t: Transaction) => {
+    if (!t.amount.startsWith("$")) {
+      t.amount = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(Number(t.amount))
+    }
+  };
 
   const handleDeleteTransaction = async (transactionId: number) => {
     await TransactionService.deleteTransaction(transactionId);
@@ -51,11 +57,13 @@ function Home() {
 
   const handleSaveTransaction = async (t: Transaction) => {
     if (t.id) {
-      await TransactionService.updateTransaction(t);
-      transactions[t.id - 1] = t;
+      let res = await TransactionService.updateTransaction(t);
+      transactions[t.id - 1] = res.data.transaction;
+      toastMsg(res.data.message);
     } else {
       let res = await TransactionService.addTransaction(t);
       addCurrencySymbol(res.data.transaction);
+      toastMsg(res.data.message);
       transactions.push(res.data.transaction);
       setAmount(calculateTotalAmount(transactions));
     };
