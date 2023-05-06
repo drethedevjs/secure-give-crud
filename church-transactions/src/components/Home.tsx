@@ -1,5 +1,5 @@
 import dateFormat from "dateformat";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Badge, Button, Table } from "react-bootstrap";
 import { Transaction } from "../../../Shared/types/Transaction.js";
 import IncomeStats from "./IncomeStats.js";
@@ -7,7 +7,7 @@ import TransactionModal from "./TransactionModal.js";
 import { TransactionService } from "../Utils/TransactionService.js";
 import HomeHelper from "../Utils/HomeHelper.js";
 
-function Home() {
+const Home: FC = (): JSX.Element => {
   const [amount, setAmount] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);

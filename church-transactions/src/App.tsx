@@ -1,10 +1,9 @@
-import Home from './Home.js';
 import { Container } from 'react-bootstrap';
-import Header from './header.js';
-import Footer from './Footer.js';
+import Footer from './components/Footer.js';
+import Header from './components/Header.js';
+import Home from './components/Home.js';
 
 function App() {
-
   return (
     <>
       <Header/>

@@ -18,7 +18,7 @@ const TransactionModal: FC<TransactionModalProps> = ({ record, show, handleClose
     >
       <Modal show={show} onHide={handleCloseFunction}>
         <Modal.Header closeButton>
-          <Modal.Title>{record?.name}</Modal.Title>
+          <Modal.Title>{record?.name || "New Transaction"}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>

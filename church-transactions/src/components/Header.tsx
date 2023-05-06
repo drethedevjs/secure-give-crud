@@ -7,7 +7,7 @@ function Header() {
         <Container>
           <Navbar.Brand href="/">
             <img
-              alt=""
+              alt="vite logo"
               src="/vite.svg"
               width="30"
               height="30"

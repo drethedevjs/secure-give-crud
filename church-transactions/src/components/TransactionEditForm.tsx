@@ -1,8 +1,8 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, FC } from "react";
 import { Form } from "react-bootstrap";
-import { FormDataProps } from "../Utils/PropInterfaces.js";
+import { TransactionEditFormProps } from "../Utils/PropInterfaces.js";
 
-export default function TransactionEditForm({ transactionFormData, setTransactionFormData } : FormDataProps) {
+const TransactionEditForm: FC<TransactionEditFormProps> = ({ transactionFormData, setTransactionFormData }): JSX.Element => {
 
   const handleNameChange = (e: ChangeEvent) => setTransactionFormData({ ...transactionFormData, name: (e.target as HTMLInputElement).value })
   const handleAmountChange = (e: ChangeEvent) => setTransactionFormData({ ...transactionFormData, amount: (e.target as HTMLInputElement).value })
@@ -26,3 +26,5 @@ export default function TransactionEditForm({ transactionFormData, setTransactio
     </Form>
   )
 }
+
+export default TransactionEditForm;

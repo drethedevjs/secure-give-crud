@@ -9,9 +9,6 @@ export interface TransactionModalProps {
 
 export interface TransactionEditFormProps {
   transactionFormData: Transaction;
-};
-
-export interface FormDataProps extends TransactionEditFormProps {
   setTransactionFormData: React.Dispatch<React.SetStateAction<Transaction>>;
 };
 

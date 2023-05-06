@@ -15,8 +15,10 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  // id prop does not mimic db identity column because you can delete
+  // say id 5 but the next created one should be 6.
   let t: Transaction = {
-    id: transactions[transactions.length - 1].id + 1, // Does not mimic db identity column because you can delete say id 5 but the next created one should be 6.
+    id: transactions[transactions.length - 1].id + 1,
     name: req.body.name,
     amount: req.body.amount,
     date: new Date(),
@@ -48,7 +50,7 @@ export function createTransactions(): void {
       id: i,
       name: random.name({ nationality: 'en' }),
       date: random.date({ year: 2023 }),
-      amount: random.dollar({ max: 500 }),
+      amount: random.dollar({ max: 200 }),
       donation: random.bool({ likelihood: 70 })
     });
   };
