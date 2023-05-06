@@ -55,19 +55,22 @@ function Home() {
     setAmount(calculateTotalAmount(records));
   };
 
+  const toastMsg = (msg: string) => enqueueSnackbar(msg, { autoHideDuration: 3000, variant: "success"});
+
   const handleSaveTransaction = async (t: Transaction) => {
+    formatCurrency(t);
+
     if (t.id) {
       let res = await TransactionService.updateTransaction(t);
       transactions[t.id - 1] = res.data.transaction;
       toastMsg(res.data.message);
     } else {
       let res = await TransactionService.addTransaction(t);
-      addCurrencySymbol(res.data.transaction);
       toastMsg(res.data.message);
       transactions.push(res.data.transaction);
-      setAmount(calculateTotalAmount(transactions));
     };
 
+    setAmount(calculateTotalAmount(transactions));
     setShow(false);
   }
 
@@ -79,7 +82,7 @@ function Home() {
       total += Number(amt)
     });
 
-    return `$${total.toFixed(2)}`;
+    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(Number(total));
   };
 
   useEffect(() => {
@@ -93,7 +96,7 @@ function Home() {
 
   return (
     <>
-      <h1>First Baptist Generosity</h1>
+      <h1 className="mt-3 mb-5">First Baptist Generosity</h1>
       <TransactionModal show={show} record={transaction} handleCloseFunction={handleClose} handleSaveTransaction={handleSaveTransaction} />
       <IncomeStats noOfDonors={transactions.length} amount={amount} />
       <hr className="hr" />
