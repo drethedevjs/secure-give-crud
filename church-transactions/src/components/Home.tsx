@@ -74,7 +74,7 @@ const Home: FC = (): JSX.Element => {
     <>
       <h1 className="mt-3 mb-5">First Baptist Generosity</h1>
 
-      <TransactionModal show={showForm} record={transaction} handleCloseFunction={() => setShowForm} handleSaveTransaction={handleSaveTransaction} />
+      <TransactionModal show={showForm} record={transaction} handleCloseFunction={() => setShowForm(false)} handleSaveTransaction={handleSaveTransaction} />
       <IncomeStats noOfDonors={transactions.length} amount={amount} />
 
       <hr className="hr" />
