@@ -1,6 +1,6 @@
-import express from 'express';
-import Chance from 'chance';
-import { Transaction } from '../../Shared/types/Transaction.js';
+import express from "express";
+import Chance from "chance";
+import { Transaction } from "../../Shared/types/Transaction.js";
 
 const router = express.Router();
 const random = new Chance();
@@ -16,7 +16,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", (req, res) => {
   // id prop does not mimic db identity column because you can delete
-  // say id 5 but the next created one should be 6.
+  // say id 5 but the next created one should be 6. With this code,
+  // it would recreate 5.
   let t: Transaction = {
     id: transactions[transactions.length - 1].id + 1,
     name: req.body.name,
@@ -39,12 +40,12 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   transactions = transactions.filter(t => t.id !== Number(req.params.id))
 
-  // Not a good idea to return the remaining transactions in the response. Doing so
+  // Not a good idea to return the remaining list of transactions in the response. Doing so
   // for the sake of having a meaningful test for this endpoint.
   res.json({ message: "Transaction deleted!", transactions: transactions });
 });
 
-export function createTransactions(): void {
+export const createTransactions = (): void => {
   for (let i = 1; i <= 50; i++) {
     transactions.push({
       id: i,

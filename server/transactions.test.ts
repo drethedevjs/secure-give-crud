@@ -1,8 +1,8 @@
-import transaction, { clearTransactions, createTransactions } from "./routes/transaction.js";
 import request from "supertest";
 import { describe, test, expect, it, beforeEach ,afterEach } from "@jest/globals";
-import app from "./app.js";
 import Chance from 'chance';
+import transaction, { clearTransactions, createTransactions } from "./routes/transaction.js";
+import app from "./app.js";
 
 const random = new Chance();
 
@@ -16,19 +16,26 @@ beforeEach(() => createTransactions());
 afterEach(() => clearTransactions());
 
 describe("GET /transactions", () => {
-  it("Returns an array of data.", async function() {
+  it("Returns a 200 response code.", async () => {
     // Act
     let response = await request(app.use(transaction)).get("/");
 
     // Assert
     expect(response.statusCode).toBe(200);
+  });
+
+  it("Returns an array of data.", async () => {
+    // Act
+    let response = await request(app.use(transaction)).get("/");
+
+    // Assert
     expect(Array.isArray(response.body)).toBeTruthy();
     expect(response.body.length).toBeGreaterThan(0);
-  })
+  });
 });
 
 describe("POST /transactions", () => {
-  it("Returns a 200 response code.", async function() {
+  it("Returns a 200 response code.", async () => {
     // Act
     let response = await request(app.use(transaction)).post("/").send(newTrans);
 
@@ -36,7 +43,7 @@ describe("POST /transactions", () => {
     expect(response.statusCode).toBe(200);
   });
 
-  it("Creates a new transaction record in the array.", async function() {
+  it("Creates a new transaction record in the array.", async () => {
     // Arrange
     let expected = {
       name: random.name(),
@@ -48,13 +55,12 @@ describe("POST /transactions", () => {
     let response = await request(app.use(transaction)).post("/").send(expected);
 
     // Assert
-    expect(response.statusCode).toBe(200);
     expect(response.body.transaction.name).toBe(expected.name);
     expect(response.body.transaction.donation).toBe(expected.donation);
     expect(response.body.transaction.amount).toBe(expected.amount);
   });
 
-  test("Returning message verification.", async function() {
+  test("Returning message verification.", async () => {
     // Act
     let response = await request(app.use(transaction)).post("/").send(newTrans);
 
@@ -63,7 +69,7 @@ describe("POST /transactions", () => {
     expect(response.body.message).toBe("Transaction added!");
   });
 
-  it("Adds new transaction with today's date", async function() {
+  it("Adds new transaction with today's date", async () => {
     // Arrange
     let todaysDate = new Date().getDate();
 
@@ -77,7 +83,7 @@ describe("POST /transactions", () => {
 });
 
 describe("PUT /transactions/:id", () => {
-  it("Response message verification", async function() {
+  it("Response message verification", async () => {
     // Using the id range for the sake of time because I already know what the array is. Usually,
     // this kind of test would have a place to add a record, get the key, and update that
     // record with that key.
@@ -97,7 +103,7 @@ describe("PUT /transactions/:id", () => {
     expect(response.body.message).toBe("Transaction updated!");
   });
 
-  it("Updates an existing transaction", async function() {
+  it("Updates an existing transaction", async () => {
     // Using the id range for the sake of time because I already know what the array is. Usually,
     // this kind of test would have a place to add a record, get the key, and update that
     // record with that key.
@@ -121,7 +127,7 @@ describe("PUT /transactions/:id", () => {
 });
 
 describe("DELETE /transactions/:id", () => {
-  it("Returns a 200 response code.", async function() {
+  it("Returns a 200 response code.", async () => {
     // Act
     let response = await request(app.use(transaction)).delete(`/1`);
 
@@ -129,7 +135,7 @@ describe("DELETE /transactions/:id", () => {
     expect(response.statusCode).toBe(200);
   });
 
-  it("Delete response message verify.", async function() {
+  it("Delete response message verify.", async () => {
     // Act
     let response = await request(app.use(transaction)).delete(`/1`);
 
@@ -137,7 +143,7 @@ describe("DELETE /transactions/:id", () => {
     expect(response.body.message).toBe("Transaction deleted!");
   });
 
-  it("Removes a record from the transactions foo db.", async function() {
+  it("Removes a record from the transactions foo db.", async () => {
     // Arrange
     let transactionId = random.integer({ min: 1, max: 50 });
 

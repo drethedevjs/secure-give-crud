@@ -1,9 +1,19 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "preserveConstEnums": true,
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+
+    "lib": ["es2021"],
+    "module": "Node16",
+    "target": "es2021",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16"
   },
   "files": ["server.ts"],
   "include": ["**/*.ts"],

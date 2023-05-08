@@ -6,7 +6,7 @@ const app = express();
 
 const corsOptions = {
   "origin": "http://localhost:5173",
-  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "methods": "GET,PUT,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 200,
   "credentials": true
