@@ -2,8 +2,6 @@
 
 Created a simple CRUD app using Typescript that will log and manage financial transactions. This app mimics a dashboard that will allow a bookkeeper, an accountant, or a CTO to have a high-level view of the organization's current income.
 
-As stated, this app is simple. There are many features that one might expect an app like this to have but does not. I forgo'd these features for the sake of time but I'll list below what would make great additions.
-
 ## Dependencies
 
 1. TypeScript
@@ -29,6 +27,8 @@ Navigate to the `server` directory and run `npm test`. The terminal should show 
 This app isn't deployed anywhere and is not hooked up to any databases. The data that it uses is created when the `express` app is launched. An array of transaction objects is created using random data and sent to the front end for viewing and data manipulation. All operations update the `transactions` variable in the transactions router.
 
 ## Features that could be added
+
+As stated before, this app is simple. There are many features that one might expect an app like this to have but does not. I forgo'd these features for the sake of time but I'll list below what would make great additions:
 
 1. Table filtering and sorting: by name, by year, etc.
 2. Form validation on the modal. The app could easily break, for instance, if someone adds letters to the amount field.
