@@ -1,4 +1,4 @@
-# Secure Give Code Challenge
+# Transaction Log Dashboard
 
 Created a simple CRUD app using Typescript that will log and manage financial transactions. This app mimics a dashboard that will allow a bookkeeper, an accountant, or a CTO to have a high-level view of the organization's current income.
 
