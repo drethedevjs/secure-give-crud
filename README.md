@@ -11,12 +11,11 @@ Created a simple CRUD app using Typescript that will log and manage financial tr
 ## How to start the app
 
 1. Clone the repo to your computer.
-2. In your terminal, navigate to the `church-transactions` directory.
-3. Run `npm i` and then `npm run dev`.
-4. A browser window/tab may open with the app. If not, navigate to the url shown in the terminal.
-5. Open another terminal window and navigate to the `server` directory.
-6. Run `npm i`, `npm run build`, and then `nodemon` if you have it installed globally.
-7. You may have to refresh the page so that it calls the server for the data to be shown.
+2. In your terminal. navigate to the `server` directory.
+3. Run `npm i`, `npm run build`, and then `nodemon` if you have it installed globally. If you don't have `nodemon` installed then install it.
+4. Open another terminal window and navigate to the `church-transactions` directory.
+5. Run `npm i` and then `npm run dev`. To run the app from a `dist` (i.e. production) folder, run `npm i`, `npm run build`, then `npm run preview`.
+6. A browser window/tab may open with the app. If not, navigate to the url shown in the terminal.
 
 ## Running Tests
 
