@@ -50,7 +50,7 @@ export const createTransactions = (): void => {
     transactions.push({
       id: i,
       name: random.name({ nationality: 'en' }),
-      date: random.date({ year: 2023 }),
+      date: new Date(random.date({ year: 2023 })),
       amount: random.dollar({ max: 200 }),
       donation: random.bool({ likelihood: 70 })
     });

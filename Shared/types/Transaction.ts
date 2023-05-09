@@ -3,5 +3,5 @@ export type Transaction = {
   name: string;
   amount: string;
   donation: boolean;
-  date: string | Date;
+  date: Date;
 }

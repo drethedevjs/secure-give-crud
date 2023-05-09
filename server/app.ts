@@ -5,7 +5,7 @@ import cors from "cors";
 const app = express();
 
 const corsOptions = {
-  "origin": "http://localhost:5173",
+  "origin": ["http://localhost:5173", "http://127.0.0.1:4173"],
   "methods": "GET,PUT,POST,DELETE",
   "preflightContinue": false,
   "optionsSuccessStatus": 200,

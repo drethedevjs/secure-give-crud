@@ -1,4 +1,3 @@
-import dateFormat from "dateformat";
 import { FC, useEffect, useState } from "react";
 import { Badge, Button, Table } from "react-bootstrap";
 import { Transaction } from "../../../Shared/types/Transaction.js";
@@ -22,7 +21,9 @@ const Home: FC = (): JSX.Element => {
   const handleShowForm = (transactionId: number) => {
     if (transactionId) {
       let t = transactions.find(t => t.id === transactionId);
-      setTrans(t);
+      if (t) {
+        setTrans(t);
+      }
     } else {
       setTrans({
         id: 0,
@@ -94,7 +95,9 @@ const Home: FC = (): JSX.Element => {
           { transactions.length ?
             transactions.map((t: Transaction) => (
               <tr key={t.id}>
-                <td>{dateFormat(t.date, "m/d/yyyy, h:MM TT")}</td>
+                <td>
+                  {new Intl.DateTimeFormat('en-US', {timeStyle: "short", dateStyle: "short"}).format(new Date(t.date))}
+                </td>
                 <td>{t.name}</td>
                 <td>{t.amount}</td>
                 <td><Badge bg="primary" pill hidden={!t.donation}>donation</Badge></td>
